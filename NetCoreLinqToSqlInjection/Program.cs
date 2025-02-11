@@ -1,18 +1,22 @@
 using NetCoreLinqToSqlInjection.Models;
+using NetCoreLinqToSqlInjection.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-Coche car = new Coche();
-car.Marca = "Honda";
-car.Modelo = " Civic 2020 Type R";
-car.Imagen = "honda.jpg";
-car.Velocidad = 0;
-car.VelocidadMaxima = 279;
+//Coche car = new Coche();
+//car.Marca = "Honda";
+//car.Modelo = " Civic 2020 Type R";
+//car.Imagen = "honda.jpg";
+//car.Velocidad = 0;
+//car.VelocidadMaxima = 279;
 
-builder.Services.AddSingleton<ICoche, Coche>(x => car);
+//builder.Services.AddSingleton<ICoche, Coche>(x => car);
+
+builder.Services.AddTransient<IRepositoryDoctores, RepositoryDoctoresOracle>();
+
 
 var app = builder.Build();
 
@@ -35,7 +39,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Coches}/{action=Index}/{id?}")
+    pattern: "{controller=Doctores}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
